@@ -64,17 +64,11 @@ public class TDDTest extends TestCase {
 	}
 
 
-	public static void setUpBeforeClass() throws Exception {
-		System.out.println("setUpBeforeClass for test");	
-		nodes = createNodes();
-	}
 
-	public static void tearDownAfterClass() throws Exception {
-		nodes = null;
-	}
 	
 
 	public void setUp() throws Exception {
+		nodes = createNodes();
 		gBuilder = new GraphBuilderImpl();	
 		query =  new GraphQueryImpl();
 	}
@@ -84,6 +78,8 @@ public class TDDTest extends TestCase {
 		gBuilder.close();
 		gBuilder = null;
 		query =  null;
+		nodes.clear();
+		nodes = null;
 	}
 
 
@@ -119,7 +115,7 @@ public class TDDTest extends TestCase {
 		
 		double weight = query.findShortestPathWeight("1", "4");
 		System.out.println("weight = " + weight);
-		assertTrue(weight > 0);	
+		assertEquals(weight, 4.0);	
 		
 	}
 
