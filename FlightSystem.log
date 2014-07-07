@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2014-07-07T05:23:35</date>
+  <millis>1404735815466</millis>
+  <sequence>0</sequence>
+  <logger>FlightSystemLogger</logger>
+  <level>INFO</level>
+  <class>com.mycompany.app.log.LogImpl</class>
+  <method>info</method>
+  <thread>1</thread>
+  <message>INFO: Buidling Graph...</message>
+</record>
+</log>
