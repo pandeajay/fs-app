@@ -22,7 +22,10 @@ public class TDDTest extends TestCase {
 	static Graph graph = null;
 	static String pathForInputFile;	
 	String nodesDataPath;
-	static List<Node> nodes = createNodes();
+	static List<Node> nodes = null;
+	GraphBuilder gBuilder = null;
+	GraphQueryImpl query =  null;
+
 	
 	static List<Node> createNodes(){		
 			List<Node> nodes = new ArrayList<Node>();			
@@ -63,30 +66,33 @@ public class TDDTest extends TestCase {
 
 	public static void setUpBeforeClass() throws Exception {
 		System.out.println("setUpBeforeClass for test");	
-		graph = new NeoGraph();
+		nodes = createNodes();
 	}
 
 	public static void tearDownAfterClass() throws Exception {
-		graph.close();
+		nodes = null;
+	}
+	
+
+	public void setUp() throws Exception {
+		gBuilder = new GraphBuilderImpl();	
+		query =  new GraphQueryImpl();
+	}
+
+
+	public void tearDown() throws Exception {
+		gBuilder.close();
+		gBuilder = null;
+		query =  null;
 	}
 
 
 	public void testShortestPath() {
-		
-		GraphBuilder gBuilder = new GraphBuilderImpl();
-		try {
+		try{
 			gBuilder.buildGraph(nodes,null);
-		} catch (Exception e) {
-			fail("testShortestPath failed "  + e);
-		}	
-		
-		GraphQueryImpl query =  new GraphQueryImpl();
-		
-		
-		try {
 			query.initialize(gBuilder.getGraph());
-		} catch (Exception e) {
-			fail("testShortestPath failed "  + e);
+		}catch(Exception ex){
+			fail(""+ex);
 		}
 		
 		List<?> edgeList = query.findShortestPathVertices("1", "4");
@@ -103,9 +109,23 @@ public class TDDTest extends TestCase {
 	}
 
 	
-	public void testShortestPathWeight() {}
+	public void testShortestPathWeight() {
+		try{
+			gBuilder.buildGraph(nodes,null);
+			query.initialize(gBuilder.getGraph());
+		}catch(Exception ex){
+			fail(""+ex);
+		}
+		
+		double weight = query.findShortestPathWeight("1", "4");
+		System.out.println("weight = " + weight);
+		assertTrue(weight > 0);	
+		
+	}
 
 	
-	public void testShortestPathVertices() {}
+	public void testShortestPathVertices() {
+		
+	}
 
 }
