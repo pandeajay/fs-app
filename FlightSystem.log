@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2014-07-07T05:23:35</date>
-  <millis>1404735815466</millis>
+  <date>2014-07-07T22:53:14</date>
+  <millis>1404753794687</millis>
   <sequence>0</sequence>
   <logger>FlightSystemLogger</logger>
   <level>INFO</level>

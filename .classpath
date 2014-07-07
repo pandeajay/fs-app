@@ -5,15 +5,15 @@
 	<classpathentry kind="lib" path="target/fs-app-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="output" path="target/test-classes"/>
 	<classpathentry kind="var" path="M2_REPO/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/neo4j/neo4j-rest-graphdb/1.8.1/neo4j-rest-graphdb-1.8.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.7/jackson-core-asl-1.9.7.jar"/>
 	<classpathentry kind="var" path="M2_REPO"/>
-	<classpathentry kind="lib" path="C:/Users/apande/fs-app/lib/neo4j-desktop-2.1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/jgraph/jgraph/5.13.0.0/jgraph-5.13.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jgrapht/jgrapht-core/0.9.0/jgrapht-core-0.9.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jgrapht/jgrapht-demo/0.9.0/jgrapht-demo-0.9.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jgrapht/jgrapht-ext/0.9.0/jgrapht-ext-0.9.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jgrapht/jgrapht-ext/0.9.0/jgrapht-ext-0.9.0-uber.jar"/>
+	<classpathentry kind="lib" path="F:/FlightSystems-2-lib/neo4j-desktop-2.1.1/neo4j-desktop-2.1.1.jar"/>
+	<classpathentry kind="output" path="target/test-classes"/>
 </classpath>
