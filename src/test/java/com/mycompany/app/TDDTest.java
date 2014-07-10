@@ -1,3 +1,7 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app;
 
 import java.util.ArrayList;

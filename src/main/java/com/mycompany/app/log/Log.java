@@ -1,3 +1,7 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app.log;;
 
 public interface Log {

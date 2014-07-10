@@ -43,3 +43,5 @@ Icon
 *.log
 *.log
 *.log
+FlightSystem.log
+*.log

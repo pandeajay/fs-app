@@ -1,10 +1,21 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app.business.builder;
 
 import java.util.List;
-
 import com.mycompany.app.business.elements.Node;
 import com.mycompany.app.business.graph.Graph;
 
+
+/**
+ * Represents interface that any graph builder should implement
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public interface GraphBuilder {
 	/**
 	 * build graph with specified path for nodes

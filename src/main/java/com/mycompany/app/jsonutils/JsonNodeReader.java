@@ -1,3 +1,7 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app.jsonutils;
 
 import java.io.FileNotFoundException;

@@ -1,3 +1,7 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app.utilities;
 
 import java.io.BufferedReader;

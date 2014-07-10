@@ -1,3 +1,7 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app.business.impl;
 
 import java.util.HashMap;
@@ -7,6 +11,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.mycompany.app.business.elements.Node;
+
+/**
+ * Represents class implementing node and its internals
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 
 public class NodeImpl implements Node {
 	

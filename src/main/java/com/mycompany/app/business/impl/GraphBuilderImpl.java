@@ -1,3 +1,8 @@
+/*
+ * Copyright ...
+ *
+ */
+
 package com.mycompany.app.business.impl;
 
 import java.util.List;
@@ -14,6 +19,13 @@ import com.mycompany.app.log.LogImpl;
 import com.mycompany.app.utilities.Logger;
 import com.mycompany.app.utilities.Utils;
 
+/**
+ * Represents a class that provides implementation for building graph.
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public class GraphBuilderImpl implements GraphBuilder{
 
 	private Graph graph = null;	

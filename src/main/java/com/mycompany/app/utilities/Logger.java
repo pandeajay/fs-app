@@ -1,3 +1,7 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app.utilities;
 
 import com.mycompany.app.log.Log;

@@ -1,3 +1,8 @@
+/*
+ * Copyright ...
+ *
+ */
+
 package com.mycompany.app.business.impl;
 
 import java.util.List;
@@ -5,6 +10,13 @@ import java.util.List;
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.query.GraphQuery;
 
+/**
+ * Represents class for running queries on graph.
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 
 public class GraphQueryImpl implements GraphQuery {
 	private Graph graph = null;

@@ -1,3 +1,8 @@
+/*
+ * Copyright ...
+ *
+ */
+
 package com.mycompany.app.graphs.impl;
 
 import java.util.ArrayList;

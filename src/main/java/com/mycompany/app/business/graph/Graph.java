@@ -1,9 +1,21 @@
+/*
+ * Copyright ...
+ *
+ */
+
 package com.mycompany.app.business.graph;
 
 import java.util.List;
 
 import com.mycompany.app.business.elements.Node;
 
+/**
+ * Represents interface for a Graph implementation. 
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public interface Graph {
 
 	/**

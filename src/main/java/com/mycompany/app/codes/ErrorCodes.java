@@ -1,5 +1,16 @@
+/*
+ * Copyright ...
+ *
+ */
 package com.mycompany.app.codes;
 
+/**
+ * Represents error messages in the system.
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public class ErrorCodes {
 	private static final String errorPrefix = "ERROR: ";
 	public static final String ERROR_GRAPH_INITIALIZED = errorPrefix + "Graph is already initialized.";
