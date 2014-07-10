@@ -16,6 +16,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * Represents class for JSON data processing.
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public class JsonNodeReader {
 
 

@@ -18,6 +18,14 @@ import com.mycompany.app.business.elements.Node;
 import com.mycompany.app.business.impl.NodeImpl;
 import com.mycompany.app.jsonutils.JsonNodeReader;
 
+
+/**
+ * Represents class for utility methods e.g. creating list of nodes , forming user defined queries etc.
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public class Utils {
 
 	

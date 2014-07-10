@@ -4,6 +4,14 @@
  */
 package com.mycompany.app.codes;
 
+/**
+ * Represents informative messeges in the system. 
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
+
 public class InfoCodes {
 	private static final String infoPrefix = "INFO: ";
 	public static final String INFO_GRAPH_INITIALIZED = infoPrefix + "Graph already initialized";

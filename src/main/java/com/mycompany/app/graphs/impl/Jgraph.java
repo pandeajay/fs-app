@@ -18,6 +18,14 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import com.mycompany.app.business.elements.Node;
 import com.mycompany.app.business.graph.Graph;
 
+/**
+ * Represents JGraphT based implementation for Graph
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
+
 public class Jgraph implements Graph {
 	
 	private final SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> jGraph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);

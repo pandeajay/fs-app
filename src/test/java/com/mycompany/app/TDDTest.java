@@ -20,6 +20,13 @@ import com.mycompany.app.graphs.impl.NeoGraph;
 
 import junit.framework.TestCase;
 
+/**
+ * Represents tests on graph and must be passed for assurance on functionality
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public class TDDTest extends TestCase {
 
 

@@ -6,6 +6,13 @@ package com.mycompany.app.utilities;
 
 import com.mycompany.app.log.Log;
 
+/**
+ * Represents class to be used for logging in the system.
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public class Logger {
 
 

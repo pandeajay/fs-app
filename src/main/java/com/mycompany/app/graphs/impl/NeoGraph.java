@@ -27,6 +27,14 @@ import com.mycompany.app.business.elements.Node;
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.graph.RelationTypes;
 
+
+/**
+ * Represents Neo4j based implementation for Graph
+ *
+ * @author  
+ * @see
+ * @since 1.0
+ */
 public class NeoGraph implements Graph{
 
 	
