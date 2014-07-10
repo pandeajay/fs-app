@@ -32,12 +32,12 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public String getNodeId() {
+	public String fetchNodeId() {
 		return this.id;
 	}
 
 	@Override
-	public Map<String, String> getEdges() {
+	public Map<String, String> fetchEdges() {
 		return this.to ;
 	}
 }

@@ -85,9 +85,9 @@ public class GraphBuilderImpl implements GraphBuilder{
 	@Override
 	public void addNode(Node node) {
 		try{
-			logger.info(InfoCodes.INFO_ADDING_NODE+ node.getNodeId() + "...");	
+			logger.info(InfoCodes.INFO_ADDING_NODE+ node.fetchNodeId() + "...");	
 			graph.addNode(node);
-			logger.info(InfoCodes.INFO_ADDED_NODE + node.getNodeId());				
+			logger.info(InfoCodes.INFO_ADDED_NODE + node.fetchNodeId());				
 		}catch(Exception ex){
 			logger.warning(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);				
 		}			
@@ -98,12 +98,12 @@ public class GraphBuilderImpl implements GraphBuilder{
 	@Override
 	public void createEdgesForNode(Node node) {
 		try{
-			logger.info(InfoCodes.INFO_CREATING_EDGE+ node.getNodeId() + " ...");	
+			logger.info(InfoCodes.INFO_CREATING_EDGE+ node.fetchNodeId() + " ...");	
 			graph.addEdge(node);
-			logger.info(InfoCodes.INFO_CREATED_EDGE + node.getNodeId() );	
+			logger.info(InfoCodes.INFO_CREATED_EDGE + node.fetchNodeId() );	
 
 		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_IN_CREATING_EDGE+  node.getNodeId() + " . Error : " + ex);				
+			logger.warning(ErrorCodes.ERROR_IN_CREATING_EDGE+  node.fetchNodeId() + " . Error : " + ex);				
 		}
 
 	}

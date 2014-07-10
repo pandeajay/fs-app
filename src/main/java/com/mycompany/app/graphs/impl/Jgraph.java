@@ -23,7 +23,7 @@ public class Jgraph implements Graph {
 	 * input : from and to id
 	 * output : weight of shortest path between from and to
 	 */
-	public double getShortestPathWeight(String from , String to){
+	public double fetchShortestPathWeight(String from , String to){
 		DijkstraShortestPath<String, DefaultWeightedEdge> shortpath = new DijkstraShortestPath<String, DefaultWeightedEdge>(this.jGraph, from, to);
 		return shortpath.getPathLength();
 	}
@@ -85,16 +85,6 @@ public class Jgraph implements Graph {
 
 
 
-
-
-
-	@Override
-	public List<Object> getAllEdges() {
-		List<Object> list = new ArrayList <Object>();
-		list.addAll(jGraph.edgeSet());
-		return list;
-	}
-
 	/**
 	 * Deletes all nodes
 	 */
@@ -149,7 +139,7 @@ public class Jgraph implements Graph {
 	@Override
 	public long addNode(Node node) {
 		try{
-			jGraph.addVertex(node.getNodeId());
+			jGraph.addVertex(node.fetchNodeId());
 		}catch(Exception e){
 			System.out.println("Exception in Graph2 add " + e);
 		}
@@ -187,7 +177,7 @@ public class Jgraph implements Graph {
 	@Override
 	public void deleteNodes(List<Node> nodes) {
 		for(Node node : nodes){
-			deleteNode(node.getNodeId());
+			deleteNode(node.fetchNodeId());
 		}
 		
 	}
@@ -198,10 +188,10 @@ public class Jgraph implements Graph {
 	 */
 	@Override
 	public long addEdge(Node node) {
-		Iterator<Entry<String, String>> it = node.getEdges().entrySet().iterator();
+		Iterator<Entry<String, String>> it = node.fetchEdges().entrySet().iterator();
 		while(it.hasNext()){			
 			Entry<String, String> entry = it.next();
-			DefaultWeightedEdge  edge = jGraph.addEdge(node.getNodeId(), entry.getKey() );
+			DefaultWeightedEdge  edge = jGraph.addEdge(node.fetchNodeId(), entry.getKey() );
 			if(edge!= null && entry.getValue() != null && entry.getValue().length() > 0){
 				jGraph.setEdgeWeight(edge, Double.parseDouble(entry.getValue()));
 			}

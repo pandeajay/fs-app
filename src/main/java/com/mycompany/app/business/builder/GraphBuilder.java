@@ -6,12 +6,48 @@ import com.mycompany.app.business.elements.Node;
 import com.mycompany.app.business.graph.Graph;
 
 public interface GraphBuilder {
+	/**
+	 * build graph with specified path for nodes
+	 * @param dataNodesPath
+	 * @throws Exception
+	 */
 	void buildGraph(String dataNodesPath) throws Exception ;
+	
+	/**
+	 * builds graph with list of nodes and type of graph which may e JGraph or NeoGraph
+	 * @param nodes
+	 * @param graphType
+	 * @throws Exception
+	 */
 	void buildGraph(List<Node> nodes, String graphType) throws Exception;	
-	void createEdgesForNode(Node node );	
+	
+	/**
+	 * Creates edges of passed node
+	 * @param node
+	 */
+	void createEdgesForNode(Node node );
+	
+	/**
+	 * Delete specified node
+	 * @param nodeId
+	 */
 	void deleteNode(String nodeId );
+	
+	/**
+	 * Get reference to underline graph
+	 * @return
+	 */
 	Graph getGraph();
+	
+	/**
+	 * Delete graph
+	 */
 	void close();
+	
+	/**
+	 * Add passed node
+	 * @param node
+	 */
 	void addNode(Node node);
 
 }

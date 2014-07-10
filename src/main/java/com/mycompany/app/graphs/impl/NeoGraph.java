@@ -68,9 +68,9 @@ public class NeoGraph implements Graph{
 		try{
 			Transaction tx = graphDb.beginTx();
 			 myNode = graphDb.createNode();
-			 myNode.setProperty( "id", node.getNodeId());
-			 myNode.setProperty( "to", node.getEdges().toString());	
-			 NeoGraph.nodeIAndNeoId.put(node.getNodeId(), ""+myNode.getId());
+			 myNode.setProperty( "id", node.fetchNodeId());
+			 myNode.setProperty( "to", node.fetchEdges().toString());	
+			 NeoGraph.nodeIAndNeoId.put(node.fetchNodeId(), ""+myNode.getId());
 			 tx.success();
 			
 		}catch(Exception ex){
@@ -98,13 +98,13 @@ public class NeoGraph implements Graph{
 
 			long fromId = 0 ;
 			try{
-				fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(node.getNodeId()));
+				fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(node.fetchNodeId()));
 			}catch(Exception ex){
 				System.out.println("Exception in NeoGraph createEdges. From node does not exist" );
 				return 0;
 			}
 			org.neo4j.graphdb.Node fromNode = (org.neo4j.graphdb.Node) graphDb.getNodeById(fromId);			
-			Iterator<Entry<String, String>> it = node.getEdges().entrySet().iterator();
+			Iterator<Entry<String, String>> it = node.fetchEdges().entrySet().iterator();
 			while(it.hasNext()){
 				Entry<String, String> entry = it.next();
 				long toId = 0 ;
@@ -141,7 +141,7 @@ public class NeoGraph implements Graph{
 	 */
 
 	@Override
-	public double getShortestPathWeight(String from, String to) {		
+	public double fetchShortestPathWeight(String from, String to) {		
 		double minWeight = 0.0 ;
 		
 		if(from == null || from.length() == 0 || to == null || to.length() == 0){
@@ -332,7 +332,7 @@ public class NeoGraph implements Graph{
 		try {
 			Transaction tx = graphDb.beginTx();
 			for (Node node : nodes) {
-				deleteNode(node.getNodeId());
+				deleteNode(node.fetchNodeId());
 			}
 			tx.success();
 		} catch (Exception e) {
@@ -356,14 +356,7 @@ public class NeoGraph implements Graph{
 		
 	}
 
-	/**
-	 * Gets all edges in a graph
-	 */
-	@Override
-	public List<Object> getAllEdges() {
-		graphDb.getAllNodes();		
-		return null;
-	}
+
 	
 	/**
 	 * deletes all nodes in a graph
@@ -418,7 +411,7 @@ public class NeoGraph implements Graph{
 			System.out.println("NeoGraph createEdge : node is null ");
 			return false;
 		}
-		if(node.getNodeId() == null || node.getNodeId().length() == 0){
+		if(node.fetchNodeId() == null || node.fetchNodeId().length() == 0){
 			System.out.println("NeoGraph createEdge : node id is null ");
 			return false;
 		}

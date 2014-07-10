@@ -13,7 +13,7 @@ public class GraphQueryImpl implements GraphQuery {
 
 	@Override
 	public double findShortestPathWeight(String from, String to) {
-		return this.graph.getShortestPathWeight(from, to);
+		return this.graph.fetchShortestPathWeight(from, to);
 	}
 
 	@Override

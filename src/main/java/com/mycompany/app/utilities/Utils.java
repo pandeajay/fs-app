@@ -25,13 +25,13 @@ public class Utils {
 			String str = newIt.next();
 			String[] strs = str.split(";");
 			Node newNode = Utils.createNode(strs);
-			if (nodesMap.containsKey(newNode.getNodeId())) {
-				Node tempnode = nodesMap.get(newNode.getNodeId());
-				Map<String, String> map = tempnode.getEdges();
-				Map<String, String> tempMap = newNode.getEdges();
+			if (nodesMap.containsKey(newNode.fetchNodeId())) {
+				Node tempnode = nodesMap.get(newNode.fetchNodeId());
+				Map<String, String> map = tempnode.fetchEdges();
+				Map<String, String> tempMap = newNode.fetchEdges();
 				map.putAll(tempMap);
 			} else {
-				nodesMap.put(newNode.getNodeId(), newNode);
+				nodesMap.put(newNode.fetchNodeId(), newNode);
 			}
 
 		}
