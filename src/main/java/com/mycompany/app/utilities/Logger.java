@@ -17,38 +17,70 @@ public class Logger {
 
 
 	private static Logger logger = null;
-	private static Log logWriter = null;
+	private static Log log = null;
 
 	private Logger(){
 
 	}
 
-	public static Logger getLogger(Log log){
+	/**
+	 * Singleton logger
+	 * @param log
+	 * @return
+	 */
+	public static Logger getLogger(Log userLog){
 		if(logger == null){
 			logger = new Logger();
-			logWriter = log;
+			log = userLog;
 		}
 		return logger;	
 	}	
 
+	/**
+	 * Logs fine level messeges
+	 * @param msg
+	 */
 	public void fine(String msg){		
-		logWriter.fine(msg);
+		log.fine(msg);
 	}	
 
+	/**
+	 * Logs info level messeges
+	 * @param msg
+	 */
 	public void info(String msg){
-		logWriter.info(msg);
+		log.info(msg);
 	}
+	
+	/**
+	 * Logs config level messeges
+	 * @param msg
+	 */
 	public void config(String msg){
-		logWriter.config(msg);
+		log.config(msg);
 	}
+	
+	/**
+	 * Logs finer level messeges
+	 * @param msg
+	 */
 	public void finer(String msg){
-		logWriter.finer(msg);
+		log.finer(msg);
 	}
+	/**
+	 * Logs finest level messeges
+	 * @param msg
+	 */
 	public void finest(String msg){
-		logWriter.finest(msg);
+		log.finest(msg);
 	}
+	
+	/**
+	 * Logs warning level messeges
+	 * @param msg
+	 */
 	public void warning(String msg){
-		logWriter.warning(msg);
+		log.warning(msg);
 	}
 
 }
