@@ -24,7 +24,7 @@ import com.mycompany.app.business.graph.Graph;
  */
 public interface GraphBuilder {
 	/**
-	 * build graph with specified path for nodes
+	 * build graph with specified path for nodes and user preferences
 	 * @param dataNodesPath
 	 * @throws Exception
 	 */
