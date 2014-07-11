@@ -97,36 +97,32 @@ public class TDDTest extends TestCase {
 	public void testShortestPath() {
 		try{
 			gBuilder.buildGraph(nodes,null);
-			query.initialize(gBuilder.getGraph());
+			query.initialize(gBuilder.getGraph());		
+			List<?> edgeList = query.findShortestPathVertices("1", "4");			
+			Iterator<?> it = edgeList.iterator();
+			String shortestPath = "";
+			while (it.hasNext()) {
+				Object edge = it.next();
+				shortestPath += edge.toString() + '-';
+			}
+			shortestPath = shortestPath.substring(0,shortestPath.length() -1);	
+			assertTrue(shortestPath.length() > 0);
 		}catch(Exception ex){
 			fail(""+ex);
 		}
-		
-		List<?> edgeList = query.findShortestPathVertices("1", "4");
-		
-		Iterator<?> it = edgeList.iterator();
-		String shortestPath = "";
-		while (it.hasNext()) {
-			Object edge = it.next();
-			shortestPath += edge.toString() + '-';
-		}
-		shortestPath = shortestPath.substring(0,shortestPath.length() -1);
-
-		assertTrue(shortestPath.length() > 0);	
 	}
 
 	
 	public void testShortestPathWeight() {
 		try{
 			gBuilder.buildGraph(nodes,null);
-			query.initialize(gBuilder.getGraph());
+			query.initialize(gBuilder.getGraph());	
+			double weight = query.findShortestPathWeight("1", "4");
+			System.out.println("weight = " + weight);
+			assertEquals(weight, 4.0);
 		}catch(Exception ex){
 			fail(""+ex);
 		}
-		
-		double weight = query.findShortestPathWeight("1", "4");
-		System.out.println("weight = " + weight);
-		assertEquals(weight, 4.0);	
 		
 	}
 

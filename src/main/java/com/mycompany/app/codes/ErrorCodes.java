@@ -20,5 +20,7 @@ public class ErrorCodes {
 	public static final String ERROR_IN_CREATING_EDGE = errorPrefix + "Error in creating edges for a node ";
 	public static final String ERROR_IN_DELETING_EDGE = errorPrefix +"Error in deleting node ";
 	public static final String ERROR_IN_CLOSING_EDGE = errorPrefix +"Error in closing graph. Error : ";
+	public static final String ERROR_NON_INITIALIZED_GRAPH_FOR_QUERY = errorPrefix + "Graph is not initialized for Query";
+	public static final String ERROR_QUERYIMPL_ALREADY_INITIALIZED_WITH_GRAPH = "GraphQueryImpl is already initialized";
 
 }

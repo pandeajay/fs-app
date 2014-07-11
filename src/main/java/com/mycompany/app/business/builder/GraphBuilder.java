@@ -39,6 +39,13 @@ public interface GraphBuilder {
 	void createEdgesForNode(Node node );
 	
 	/**
+	 * Add passed node
+	 * @param node
+	 */
+	void addNode(Node node);
+	
+	
+	/**
 	 * Delete specified node
 	 * @param nodeId
 	 */
@@ -54,11 +61,4 @@ public interface GraphBuilder {
 	 * Delete graph
 	 */
 	void close();
-	
-	/**
-	 * Add passed node
-	 * @param node
-	 */
-	void addNode(Node node);
-
 }

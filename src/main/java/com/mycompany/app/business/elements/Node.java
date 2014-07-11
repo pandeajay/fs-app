@@ -17,7 +17,7 @@ import java.util.Map;
 public interface Node {
 	
 	/**
-	 * Retrievs node id
+	 * Retrieves node id
 	 * @return
 	 */
 	public String fetchNodeId();
