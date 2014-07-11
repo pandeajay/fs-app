@@ -10,7 +10,13 @@ import com.mycompany.app.business.graph.Graph;
 
 
 /**
- * Represents interface that any graph builder should implement
+ * Represents interface that graph builder should implement to build and manager the graph.
+ * 
+ * This has capability to initialize and builds the graph based on 
+ * on template path provided by user or nodes and graph style option 
+ * provided by user.
+ * 
+ * It also provides capacity to add node, creates edges for a node, delete node and fetch underlying graph.
  *
  * @author  
  * @see

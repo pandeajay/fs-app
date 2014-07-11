@@ -31,7 +31,7 @@ public class GraphQueryImpl implements GraphQuery {
 	}
 
 	@Override
-	public List<?> findShortestPathVertices(String from, String to)throws Exception {
+	public List<?> findShortestPath(String from, String to)throws Exception {
 		if(this.graph == null){
 			throw new Exception (ErrorCodes.ERROR_NON_INITIALIZED_GRAPH_FOR_QUERY);
 		}

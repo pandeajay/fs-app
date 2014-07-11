@@ -98,7 +98,7 @@ public class TDDTest extends TestCase {
 		try{
 			gBuilder.buildGraph(nodes,null);
 			query.initialize(gBuilder.getGraph());		
-			List<?> edgeList = query.findShortestPathVertices("1", "4");			
+			List<?> edgeList = query.findShortestPath("1", "4");			
 			Iterator<?> it = edgeList.iterator();
 			String shortestPath = "";
 			while (it.hasNext()) {
