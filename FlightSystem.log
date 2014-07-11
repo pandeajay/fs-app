@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070890</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141379</millis>
   <sequence>0</sequence>
   <logger>FlightSystemLogger</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>INFO: Buidling Graph...</message>
 </record>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070972</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141543</millis>
   <sequence>1</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -24,8 +24,8 @@
   <message>INFO: Closing graph ...</message>
 </record>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070973</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141543</millis>
   <sequence>2</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -35,8 +35,8 @@
   <message>INFO: Closed graph.</message>
 </record>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070975</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141545</millis>
   <sequence>3</sequence>
   <logger>FlightSystemLogger</logger>
   <level>INFO</level>
@@ -46,8 +46,8 @@
   <message>INFO: Buidling Graph...</message>
 </record>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070977</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141548</millis>
   <sequence>4</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -57,8 +57,8 @@
   <message>INFO: Closing graph ...</message>
 </record>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070977</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141548</millis>
   <sequence>5</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -68,8 +68,8 @@
   <message>INFO: Closed graph.</message>
 </record>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070979</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141550</millis>
   <sequence>6</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -79,8 +79,8 @@
   <message>INFO: Closing graph ...</message>
 </record>
 <record>
-  <date>2014-07-10T22:54:30</date>
-  <millis>1405058070980</millis>
+  <date>2014-07-11T22:15:41</date>
+  <millis>1405097141552</millis>
   <sequence>7</sequence>
   <logger>FlightSystemLogger</logger>
   <level>WARNING</level>
