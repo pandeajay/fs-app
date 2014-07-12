@@ -20,12 +20,12 @@ public interface Node {
 	 * Retrieves node id
 	 * @return
 	 */
-	public String fetchNodeId();
+	public String nodeId();
 	
 	/**
 	 * Get edges of a this node
 	 * @return
 	 */
-	public Map<String,String> fetchEdges();
+	public Map<String,String> edges();
 
 }

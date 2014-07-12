@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748835</millis>
+  <date>2014-07-12T12:10:18</date>
+  <millis>1405147218734</millis>
   <sequence>0</sequence>
   <logger>FlightSystemLogger</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>INFO: Buidling Graph...</message>
 </record>
 <record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748890</millis>
+  <date>2014-07-12T12:10:29</date>
+  <millis>1405147229751</millis>
   <sequence>1</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -24,8 +24,8 @@
   <message>INFO: Closing graph ...</message>
 </record>
 <record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748891</millis>
+  <date>2014-07-12T12:10:29</date>
+  <millis>1405147229752</millis>
   <sequence>2</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -35,8 +35,8 @@
   <message>INFO: Closed graph.</message>
 </record>
 <record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748892</millis>
+  <date>2014-07-12T12:10:33</date>
+  <millis>1405147233639</millis>
   <sequence>3</sequence>
   <logger>FlightSystemLogger</logger>
   <level>INFO</level>
@@ -46,8 +46,8 @@
   <message>INFO: Buidling Graph...</message>
 </record>
 <record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748894</millis>
+  <date>2014-07-12T12:10:36</date>
+  <millis>1405147236846</millis>
   <sequence>4</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -57,8 +57,8 @@
   <message>INFO: Closing graph ...</message>
 </record>
 <record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748894</millis>
+  <date>2014-07-12T12:10:36</date>
+  <millis>1405147236849</millis>
   <sequence>5</sequence>
   <logger>FlightSystemLogger</logger>
   <level>FINE</level>
@@ -67,26 +67,3 @@
   <thread>1</thread>
   <message>INFO: Closed graph.</message>
 </record>
-<record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748895</millis>
-  <sequence>6</sequence>
-  <logger>FlightSystemLogger</logger>
-  <level>FINE</level>
-  <class>com.mycompany.app.log.LogImpl</class>
-  <method>fine</method>
-  <thread>1</thread>
-  <message>INFO: Closing graph ...</message>
-</record>
-<record>
-  <date>2014-07-11T23:49:08</date>
-  <millis>1405102748896</millis>
-  <sequence>7</sequence>
-  <logger>FlightSystemLogger</logger>
-  <level>WARNING</level>
-  <class>com.mycompany.app.log.LogImpl</class>
-  <method>warning</method>
-  <thread>1</thread>
-  <message>ERROR: Error in closing graph. Error : java.lang.NullPointerException</message>
-</record>
-</log>

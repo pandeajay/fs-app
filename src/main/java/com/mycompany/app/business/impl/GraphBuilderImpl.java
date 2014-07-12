@@ -35,7 +35,7 @@ public class GraphBuilderImpl implements GraphBuilder{
 
 
 	@Override
-	public void buildGraph(String dataNodesPath) throws Exception {
+	public Graph buildGraphFromPreferenceFile(String dataNodesPath) throws Exception {
 		try{
 			logger.fine(InfoCodes.INFO_INITIALIZING_GRAPH);		
 
@@ -65,12 +65,17 @@ public class GraphBuilderImpl implements GraphBuilder{
 			List<Node> newNodesList = Utils.getAllNodesFromJson(nodesDataPath);				
 			graph.addNodes(newNodesList);
 			graph.addEdges(newNodesList);
+			
+			return graph;		
+			
 		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);	
-		}		
+			logger.warning(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
+			throw new Exception(ErrorCodes.ERROR_BUILDING_GRAPH );
+		}			
+		
 	}
 	@Override
-	public void buildGraph(List<Node> nodes, String graphType) throws Exception {
+	public Graph buildGraphFromNodes(List<Node> nodes, String graphType) throws Exception {
 		try{
 			if(graphType == null || graphType.length() == 0){
 				this.graph  = new Jgraph();
@@ -85,56 +90,18 @@ public class GraphBuilderImpl implements GraphBuilder{
 			if(nodes != null && nodes.size() > 0){					
 				graph.addNodes(nodes);
 				graph.addEdges(nodes);
-				return ;
+				
 			}
+			
+			return this.graph;
 		}catch(Exception ex){
 			logger.warning(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
 			throw new Exception(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
-		}	
-		
-	}
-
-	@Override
-	public void addNode(Node node) {
-		try{
-			logger.info(InfoCodes.INFO_ADDING_NODE+ node.fetchNodeId() + "...");	
-			graph.addNode(node);
-			logger.info(InfoCodes.INFO_ADDED_NODE + node.fetchNodeId());				
-		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);				
-		}			
-	}
-
-
-
-	@Override
-	public void createEdgesForNode(Node node) {
-		try{
-			logger.info(InfoCodes.INFO_CREATING_EDGE+ node.fetchNodeId() + " ...");	
-			graph.addEdge(node);
-			logger.info(InfoCodes.INFO_CREATED_EDGE + node.fetchNodeId() );	
-
-		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_IN_CREATING_EDGE+  node.fetchNodeId() + " . Error : " + ex);				
-		}
-
-	}
-
-	@Override
-	public void deleteNode(String nodeId) {
-		try{
-			logger.fine(InfoCodes.INFO_DELETING_EDGE+ nodeId +" ...");	
-			graph.deleteNode(nodeId);
-			logger.fine(InfoCodes.INFO_DELETED_EDGE+ nodeId);
-
-		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_IN_DELETING_EDGE + nodeId + ". Error : " + ex);				
 		}		
-
 	}
-
+	
 	@Override
-	public void close() {
+	public void deleteAll() {
 		try{
 			logger.fine(InfoCodes.INFO_CLOSING_GRAPH );	
 			this.graph.close();
@@ -143,15 +110,5 @@ public class GraphBuilderImpl implements GraphBuilder{
 		}catch(Exception ex){
 			logger.warning(ErrorCodes.ERROR_IN_CLOSING_EDGE + ex);			
 		}
-
 	}
-
-	@Override
-	public Graph getGraph() {
-		return this.graph;
-	}
-	
-	
-	
-
 }

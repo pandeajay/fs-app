@@ -5,7 +5,10 @@
 
 package com.mycompany.app.business.impl;
 
+import java.lang.reflect.Method;
 import java.util.List;
+
+import com.mycompany.app.graphs.impl.Jgraph;
 
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.query.GraphQuery;
@@ -20,7 +23,7 @@ import com.mycompany.app.codes.ErrorCodes;
  */
 
 public class GraphQueryImpl implements GraphQuery {
-	private Graph graph = null;
+	private Graph graph;
 
 	@Override
 	public double findShortestPathWeight(String from, String to) throws Exception {
@@ -34,7 +37,8 @@ public class GraphQueryImpl implements GraphQuery {
 	public List<?> findShortestPath(String from, String to)throws Exception {
 		if(this.graph == null){
 			throw new Exception (ErrorCodes.ERROR_NON_INITIALIZED_GRAPH_FOR_QUERY);
-		}
+		}	
+		
 		return this.graph.getShortestPathVetices(from, to);
 	}
 

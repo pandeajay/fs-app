@@ -29,7 +29,7 @@ public class NodeImpl implements Node {
 		
 		this.id=new String (id);
 		this.to = new HashMap<String, String>();
-		if(toListWithWeight != null && toListWithWeight.size() > 0){
+		if(toListWithWeight != null && !toListWithWeight.isEmpty()){
 			Iterator<Map<String, String>> it = toListWithWeight.iterator();
 			while(it.hasNext()){
 				Map<String, String> map =  it.next();	
@@ -44,12 +44,12 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public String fetchNodeId() {
+	public String nodeId() {
 		return this.id;
 	}
 
 	@Override
-	public Map<String, String> fetchEdges() {
+	public Map<String, String> edges() {
 		return this.to ;
 	}
 }

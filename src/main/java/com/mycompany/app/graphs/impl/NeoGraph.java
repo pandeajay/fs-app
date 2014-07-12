@@ -81,9 +81,9 @@ public class NeoGraph implements Graph{
 		try{
 			Transaction tx = graphDb.beginTx();
 			 myNode = graphDb.createNode();
-			 myNode.setProperty( "id", node.fetchNodeId());
-			 myNode.setProperty( "to", node.fetchEdges().toString());	
-			 NeoGraph.nodeIAndNeoId.put(node.fetchNodeId(), ""+myNode.getId());
+			 myNode.setProperty( "id", node.nodeId());
+			 myNode.setProperty( "to", node.edges().toString());	
+			 NeoGraph.nodeIAndNeoId.put(node.nodeId(), ""+myNode.getId());
 			 tx.success();
 			
 		}catch(Exception ex){
@@ -111,13 +111,13 @@ public class NeoGraph implements Graph{
 
 			long fromId = 0 ;
 			try{
-				fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(node.fetchNodeId()));
+				fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(node.nodeId()));
 			}catch(Exception ex){
 				System.out.println("Exception in NeoGraph createEdges. From node does not exist" );
 				return 0;
 			}
 			org.neo4j.graphdb.Node fromNode = (org.neo4j.graphdb.Node) graphDb.getNodeById(fromId);			
-			Iterator<Entry<String, String>> it = node.fetchEdges().entrySet().iterator();
+			Iterator<Entry<String, String>> it = node.edges().entrySet().iterator();
 			while(it.hasNext()){
 				Entry<String, String> entry = it.next();
 				long toId = 0 ;
@@ -345,7 +345,7 @@ public class NeoGraph implements Graph{
 		try {
 			Transaction tx = graphDb.beginTx();
 			for (Node node : nodes) {
-				deleteNode(node.fetchNodeId());
+				deleteNode(node.nodeId());
 			}
 			tx.success();
 		} catch (Exception e) {
@@ -424,7 +424,7 @@ public class NeoGraph implements Graph{
 			System.out.println("NeoGraph createEdge : node is null ");
 			return false;
 		}
-		if(node.fetchNodeId() == null || node.fetchNodeId().length() == 0){
+		if(node.nodeId() == null || node.nodeId().length() == 0){
 			System.out.println("NeoGraph createEdge : node id is null ");
 			return false;
 		}

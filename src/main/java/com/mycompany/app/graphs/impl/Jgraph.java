@@ -52,7 +52,7 @@ public class Jgraph implements Graph {
 	}
 	
 
-	public List getShortestPathVetices(List<DefaultWeightedEdge> edgeList){
+	private List<String> getShortestPathVetices(List<DefaultWeightedEdge> edgeList){
 		List<String> list = new ArrayList<String>();
 		Iterator<DefaultWeightedEdge> it = edgeList.iterator();
 		while(it.hasNext()){
@@ -152,7 +152,7 @@ public class Jgraph implements Graph {
 	@Override
 	public long addNode(Node node) {
 		try{
-			jGraph.addVertex(node.fetchNodeId());
+			jGraph.addVertex(node.nodeId());
 		}catch(Exception e){
 			System.out.println("Exception in Graph2 add " + e);
 		}
@@ -190,7 +190,7 @@ public class Jgraph implements Graph {
 	@Override
 	public void deleteNodes(List<Node> nodes) {
 		for(Node node : nodes){
-			deleteNode(node.fetchNodeId());
+			deleteNode(node.nodeId());
 		}
 		
 	}
@@ -201,10 +201,10 @@ public class Jgraph implements Graph {
 	 */
 	@Override
 	public long addEdge(Node node) {
-		Iterator<Entry<String, String>> it = node.fetchEdges().entrySet().iterator();
+		Iterator<Entry<String, String>> it = node.edges().entrySet().iterator();
 		while(it.hasNext()){			
 			Entry<String, String> entry = it.next();
-			DefaultWeightedEdge  edge = jGraph.addEdge(node.fetchNodeId(), entry.getKey() );
+			DefaultWeightedEdge  edge = jGraph.addEdge(node.nodeId(), entry.getKey() );
 			if(edge!= null && entry.getValue() != null && entry.getValue().length() > 0){
 				jGraph.setEdgeWeight(edge, Double.parseDouble(entry.getValue()));
 			}

@@ -28,7 +28,7 @@ public interface GraphBuilder {
 	 * @param dataNodesPath
 	 * @throws Exception
 	 */
-	void buildGraph(String dataNodesPath) throws Exception ;
+	Graph buildGraphFromPreferenceFile(String dataNodesPath) throws Exception ;
 	
 	/**
 	 * builds graph with list of nodes and type of graph which may e JGraph or NeoGraph
@@ -36,35 +36,11 @@ public interface GraphBuilder {
 	 * @param graphType
 	 * @throws Exception
 	 */
-	void buildGraph(List<Node> nodes, String graphType) throws Exception;	
+	Graph buildGraphFromNodes(List<Node> nodes, String graphType) throws Exception;	
 	
-	/**
-	 * Creates edges of passed node
-	 * @param node
-	 */
-	void createEdgesForNode(Node node );
-	
-	/**
-	 * Add passed node
-	 * @param node
-	 */
-	void addNode(Node node);
-	
-	
-	/**
-	 * Delete specified node
-	 * @param nodeId
-	 */
-	void deleteNode(String nodeId );
-	
-	/**
-	 * Get reference to underline graph
-	 * @return
-	 */
-	Graph getGraph();
 	
 	/**
 	 * Delete graph
 	 */
-	void close();
+	void deleteAll();
 }

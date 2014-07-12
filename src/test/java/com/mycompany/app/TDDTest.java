@@ -86,7 +86,7 @@ public class TDDTest extends TestCase {
 
 
 	public void tearDown() throws Exception {
-		gBuilder.close();
+		gBuilder.deleteAll();
 		gBuilder = null;
 		query =  null;
 		nodes.clear();
@@ -96,8 +96,8 @@ public class TDDTest extends TestCase {
 
 	public void testShortestPath() {
 		try{
-			gBuilder.buildGraph(nodes,null);
-			query.initialize(gBuilder.getGraph());		
+			Graph graph = gBuilder.buildGraphFromNodes(nodes,null);
+			query.initialize(graph);		
 			List<?> edgeList = query.findShortestPath("1", "4");			
 			Iterator<?> it = edgeList.iterator();
 			String shortestPath = "";
@@ -108,6 +108,7 @@ public class TDDTest extends TestCase {
 			shortestPath = shortestPath.substring(0,shortestPath.length() -1);	
 			assertTrue(shortestPath.length() > 0);
 		}catch(Exception ex){
+			System.out.println("Exception in = " + ex);
 			fail(""+ex);
 		}
 	}
@@ -115,20 +116,13 @@ public class TDDTest extends TestCase {
 	
 	public void testShortestPathWeight() {
 		try{
-			gBuilder.buildGraph(nodes,null);
-			query.initialize(gBuilder.getGraph());	
+			Graph graph = gBuilder.buildGraphFromNodes(nodes,null);
+			query.initialize(graph);	
 			double weight = query.findShortestPathWeight("1", "4");
 			System.out.println("weight = " + weight);
 			assertEquals(weight, 4.0);
 		}catch(Exception ex){
 			fail(""+ex);
-		}
-		
+		}		
 	}
-
-	
-	public void testShortestPathVertices() {
-		
-	}
-
 }

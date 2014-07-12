@@ -37,13 +37,13 @@ public class Utils {
 			String str = newIt.next();
 			String[] strs = str.split(";");
 			Node newNode = Utils.createNode(strs);
-			if (nodesMap.containsKey(newNode.fetchNodeId())) {
-				Node tempnode = nodesMap.get(newNode.fetchNodeId());
-				Map<String, String> map = tempnode.fetchEdges();
-				Map<String, String> tempMap = newNode.fetchEdges();
+			if (nodesMap.containsKey(newNode.nodeId())) {
+				Node tempnode = nodesMap.get(newNode.nodeId());
+				Map<String, String> map = tempnode.edges();
+				Map<String, String> tempMap = newNode.edges();
 				map.putAll(tempMap);
 			} else {
-				nodesMap.put(newNode.fetchNodeId(), newNode);
+				nodesMap.put(newNode.nodeId(), newNode);
 			}
 
 		}
