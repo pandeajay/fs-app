@@ -25,8 +25,13 @@ import com.mycompany.app.codes.ErrorCodes;
 public class GraphQueryImpl implements GraphQuery {
 	private Graph graph;
 
+	public GraphQueryImpl(Graph graph){
+		this.graph = graph;
+	}
+	
+	
 	@Override
-	public double findShortestPathWeight(String from, String to) throws Exception {
+	public double shortestPathWeight(String from, String to) throws Exception {
 		if(this.graph == null){
 			throw new Exception (ErrorCodes.ERROR_NON_INITIALIZED_GRAPH_FOR_QUERY);
 		}
@@ -34,7 +39,7 @@ public class GraphQueryImpl implements GraphQuery {
 	}
 
 	@Override
-	public List<?> findShortestPath(String from, String to)throws Exception {
+	public List<?> shortestPath(String from, String to)throws Exception {
 		if(this.graph == null){
 			throw new Exception (ErrorCodes.ERROR_NON_INITIALIZED_GRAPH_FOR_QUERY);
 		}	
@@ -43,13 +48,4 @@ public class GraphQueryImpl implements GraphQuery {
 	}
 
 
-
-	@Override
-	public void initialize(Graph graph) throws Exception {
-		if(this.graph != null){
-			throw new Exception(ErrorCodes.ERROR_QUERYIMPL_ALREADY_INITIALIZED_WITH_GRAPH);
-		}
-		this.graph = graph;	
-		
-	}
 }

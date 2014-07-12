@@ -81,7 +81,7 @@ public class TDDTest extends TestCase {
 	public void setUp() throws Exception {
 		nodes = createNodes();
 		gBuilder = new GraphBuilderImpl();	
-		query =  new GraphQueryImpl();
+		
 	}
 
 
@@ -96,9 +96,11 @@ public class TDDTest extends TestCase {
 
 	public void testShortestPath() {
 		try{
+			
 			Graph graph = gBuilder.buildGraphFromNodes(nodes,null);
-			query.initialize(graph);		
-			List<?> edgeList = query.findShortestPath("1", "4");			
+			query =  new GraphQueryImpl(graph);
+				
+			List<?> edgeList = query.shortestPath("1", "4");			
 			Iterator<?> it = edgeList.iterator();
 			String shortestPath = "";
 			while (it.hasNext()) {
@@ -117,8 +119,8 @@ public class TDDTest extends TestCase {
 	public void testShortestPathWeight() {
 		try{
 			Graph graph = gBuilder.buildGraphFromNodes(nodes,null);
-			query.initialize(graph);	
-			double weight = query.findShortestPathWeight("1", "4");
+			query =  new GraphQueryImpl(graph);	
+			double weight = query.shortestPathWeight("1", "4");
 			System.out.println("weight = " + weight);
 			assertEquals(weight, 4.0);
 		}catch(Exception ex){

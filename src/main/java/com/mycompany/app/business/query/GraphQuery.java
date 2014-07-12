@@ -17,8 +17,7 @@ import com.mycompany.app.business.graph.Graph;
  * @since 1.0
  */
 public interface GraphQuery {
-	public void initialize(Graph graph) throws Exception;
-	public double findShortestPathWeight(String from, String to ) throws Exception ;				
-	public List<?> findShortestPath(String from, String to ) throws Exception;
+	public double shortestPathWeight(String from, String to ) throws Exception ;				
+	public List<?> shortestPath(String from, String to ) throws Exception;
 
 }
