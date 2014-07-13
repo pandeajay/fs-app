@@ -2,7 +2,7 @@
 	1.1. Build project using maven
 	1.2. Copy and paste neo4j-desktop-2.1.1.jar as not available in maven repo. You can download from Neo4j. here is link https://drive.google.com/?tab=mo&authuser=0#folders/0B9DeM7DxtsOLUFBVVnVIM05CRjg 
 
-2. Details:
+2. Project Details:
 	2.1. Node has at present one implementation. It follows programming for interfaces principle. Same applies for GraphBuilder and GraphQueryService interfaces. Abstract classes can be option, but in the initial phase of implementation interfaces provide more flexibility. All interfaces follow SOLID design principles.
 	2.2. GraphBuilder is used for building and managing graph
 	2.3. GraphQueryService is used for querying the graph for shortest path
