@@ -30,7 +30,7 @@ import com.mycompany.app.business.graph.Graph;
 
 public class Jgraph implements Graph {
 	
-	private final SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> jGraph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+	private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> jGraph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 	
 		
 	/**
@@ -47,17 +47,6 @@ public class Jgraph implements Graph {
 		return shortestPath;
 	}
 	
-	/**
-	 * For a from and to pair return shortest path Edges
-	 * input : from and to id
-	 * output : Edges of shortest path between from and to
-	 */
-	public List<DefaultWeightedEdge> getShortestPathEdgeList(String from , String to){
-		DijkstraShortestPath<String, DefaultWeightedEdge> shortpath = new DijkstraShortestPath<String, DefaultWeightedEdge>(this.jGraph, from, to);
-		return shortpath.getPathEdgeList();
-	}
-	
-
 	private List<String> getShortestPathVetices(List<DefaultWeightedEdge> edgeList){
 		List<String> list = new ArrayList<String>();
 		Iterator<DefaultWeightedEdge> it = edgeList.iterator();
@@ -76,7 +65,7 @@ public class Jgraph implements Graph {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
+		this.jGraph = null;
 		
 	}
 	/**
