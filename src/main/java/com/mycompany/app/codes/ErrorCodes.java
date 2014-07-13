@@ -23,4 +23,7 @@ public class ErrorCodes {
 	public static final String ERROR_NON_INITIALIZED_GRAPH_FOR_QUERY = errorPrefix + "Graph is not initialized for Query";
 	public static final String ERROR_QUERYIMPL_ALREADY_INITIALIZED_WITH_GRAPH = "GraphQueryServiceImpl is already initialized";
 	public static final String ERROR_IN_SHORTEST_PATH = errorPrefix + "Error in shotest path identification";
+	public static final String ERROR_WHILE_CREATING_NODE = errorPrefix + "Error while creating node";
+	public static final String ERROR_IN_GETTING_JSON_QUERIES = errorPrefix + "Error in getting JSON queries from user";
+	public static final String ERROR_IN_READING_JSON_TO_FROM = errorPrefix + "Error in reading JSON to and from list";
 }

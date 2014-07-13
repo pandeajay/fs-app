@@ -13,6 +13,7 @@ import java.util.Map;
 import com.mycompany.app.business.builder.GraphBuilder;
 import com.mycompany.app.business.elements.Node;
 import com.mycompany.app.business.elements.ShortestPathAndWeight;
+import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.impl.GraphBuilderImpl;
 import com.mycompany.app.business.impl.GraphQueryServiceImpl;
@@ -33,7 +34,7 @@ public class TDDTest extends TestCase {
 	GraphBuilder gBuilder = null;
 	GraphQueryServiceImpl query = null;
 
-	static List<Node> createNodes() {
+	static List<Node> createNodes() throws AppException {
 		List<Node> nodes = new ArrayList<Node>();
 		List<Map<String, String>> nodeInfo = new ArrayList<Map<String, String>>();
 		Map<String, String> map = new HashMap<String, String>();

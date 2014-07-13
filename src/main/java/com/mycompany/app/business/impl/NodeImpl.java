@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.mycompany.app.business.elements.Node;
+import com.mycompany.app.business.exception.AppException;
+import com.mycompany.app.codes.ErrorCodes;
 
 /**
  * Represents class implementing node and its internals
@@ -22,23 +24,36 @@ import com.mycompany.app.business.elements.Node;
 
 public class NodeImpl implements Node {
 	
+	//User defined node id
 	private String id ;
-	private Map <String, String> to ;
 	
-	public NodeImpl(String id , List<Map<String,String>> toListWithWeight){
+	//Represents edge edgesMap and its weight
+	private Map <String, String> edgesMap ;
+	
+	/**
+	 * Takes user defined node id and is edges with weight
+	 * @param id
+	 * @param toListWithWeight
+	 * @throws AppException 
+	 */
+	public NodeImpl(String id , List<Map<String,String>> toListWithWeight) throws AppException{
 		
-		this.id=new String (id);
-		this.to = new HashMap<String, String>();
-		if(toListWithWeight != null && !toListWithWeight.isEmpty()){
-			Iterator<Map<String, String>> it = toListWithWeight.iterator();
-			while(it.hasNext()){
-				Map<String, String> map =  it.next();	
-				Iterator<Entry<String, String>> it2  = map.entrySet().iterator();
-				while(it2.hasNext()){
-					Entry<String, String> next = it2.next();
-					this.to.put(next.getKey(), next.getValue());					
+		try{
+			this.id=new String (id);
+			this.edgesMap = new HashMap<String, String>();
+			if(toListWithWeight != null && !toListWithWeight.isEmpty()){
+				Iterator<Map<String, String>> it = toListWithWeight.iterator();
+				while(it.hasNext()){
+					Map<String, String> map =  it.next();	
+					Iterator<Entry<String, String>> it2  = map.entrySet().iterator();
+					while(it2.hasNext()){
+						Entry<String, String> next = it2.next();
+						this.edgesMap.put(next.getKey(), next.getValue());					
+					}
 				}
 			}
+		}catch(Exception ex){
+			throw new AppException(ErrorCodes.ERROR_WHILE_CREATING_NODE);
 		}
 				
 	}
@@ -50,6 +65,6 @@ public class NodeImpl implements Node {
 
 	@Override
 	public Map<String, String> edges() {
-		return this.to ;
+		return this.edgesMap ;
 	}
 }
