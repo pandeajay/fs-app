@@ -142,7 +142,7 @@ public class Jgraph implements Graph {
 
 	
 	@Override
-	public void addEdges(List<Node> nodes) {
+	public void addEdges(List<Node> nodes) throws AppException {
 		for(Node node : nodes){
 			addEdge(node);
 		}		
@@ -175,9 +175,11 @@ public class Jgraph implements Graph {
 
 	/**
 	 * Creates edges of a specified Node
+	 * @throws AppException 
 	 */
 	@Override
-	public void addEdge(Node node) {
+	public void addEdge(Node node) throws AppException {
+		try{
 		Iterator<Entry<String, String>> it = node.edges().entrySet().iterator();
 		while(it.hasNext()){			
 			Entry<String, String> entry = it.next();
@@ -185,6 +187,10 @@ public class Jgraph implements Graph {
 			if(edge!= null && entry.getValue() != null && entry.getValue().length() > 0){
 				jGraph.setEdgeWeight(edge, Double.parseDouble(entry.getValue()));
 			}
+		}
+		}catch(Exception ex){
+			logger.error(ErrorCodes.ERROR_IN_CREATING_EDGE + ex);
+			throw new AppException(ErrorCodes.ERROR_IN_CREATING_EDGE);
 		}
 	}
 }
