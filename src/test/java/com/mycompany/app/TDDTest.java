@@ -18,8 +18,6 @@ import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.impl.GraphBuilderImpl;
 import com.mycompany.app.business.impl.GraphQueryServiceImpl;
 import com.mycompany.app.business.impl.NodeImpl;
-import com.mycompany.app.graphs.impl.NeoGraph;
-
 import junit.framework.TestCase;
 
 /**
@@ -104,7 +102,6 @@ public class TDDTest extends TestCase {
 			assertTrue(shortestPath.contains("4"));
 			
 		} catch (Exception ex) {
-			System.out.println("Exception in = " + ex);
 			fail("testShortestPath" + ex);
 		}
 	}
