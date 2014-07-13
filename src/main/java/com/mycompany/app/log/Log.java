@@ -18,4 +18,5 @@ public interface Log {
 	void finer(String msg);
 	void finest(String msg);
 	void warning(String msg);
+	void error(String msg);
 }

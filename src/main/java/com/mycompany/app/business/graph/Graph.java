@@ -8,6 +8,8 @@ package com.mycompany.app.business.graph;
 import java.util.List;
 
 import com.mycompany.app.business.elements.Node;
+import com.mycompany.app.business.elements.ShortestPathAndWeight;
+import com.mycompany.app.business.exception.AppException;
 
 /**
  * Represents interface for a Graph implementation. 
@@ -23,39 +25,39 @@ public interface Graph {
 	 * @param node
 	 * @return
 	 */
-	long addNode(Node node);
+	void addNode(Node node) throws AppException;
 	
 	/**
 	 * Deletes specified node
 	 * @param nodeId
 	 * @return
 	 */
-	long deleteNode(String nodeId);
+	void deleteNode(String nodeId) throws AppException;
 	
 	/**
 	 * Add nodes
 	 * @param nodes
 	 */
-	void addNodes(List<Node> nodes);
+	void addNodes(List<Node> nodes) throws AppException;
 	
 	/**
 	 * Creates edges for specified nodes
 	 * @param nodes
 	 */
-	void addEdges(List<Node> nodes);
+	void addEdges(List<Node> nodes) throws AppException;
 	
 	/**
 	 * Creates edge for specified node
 	 * @param node
 	 * @return
 	 */
-	long addEdge(Node node);
+	void addEdge(Node node) throws AppException;
 	
 	/**
 	 * Deletes specified nodes
 	 * @param node
 	 */
-	void deleteNodes(List<Node> node);
+	void deleteNodes(List<Node> node) throws AppException;
 	
 	/**
 	 * Retrieves weight of shortest path
@@ -63,20 +65,13 @@ public interface Graph {
 	 * @param to
 	 * @return
 	 */
-	double fetchShortestPathWeight(String from , String to);	
+	ShortestPathAndWeight shortestPathFromImplementation(String from , String to) throws AppException;	
 	
-	/**
-	 * Retrieves vertices of shortest path
-	 * @param from
-	 * @param to
-	 * @return
-	 */
-	List<?> getShortestPathVetices(String from , String to);
 	
 	/**
 	 * Delete graph
 	 */
-	void close();
+	void close() throws AppException;
 	
 
 	
@@ -84,11 +79,11 @@ public interface Graph {
 	 * Deletes all nodes
 	 * @return
 	 */
-	int deleteAllNodes();
+	void deleteAllNodes() throws AppException;
 	
 	/**
 	 * deletes all edges
 	 * @return
 	 */
-	int deleteAllEdges();
+	void deleteAllEdges() throws AppException;
 }

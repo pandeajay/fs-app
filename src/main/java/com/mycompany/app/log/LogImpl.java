@@ -63,4 +63,10 @@ public class LogImpl implements Log {
 		
 	}
 
+	@Override
+	public void error(String msg) {
+		logWriter.severe(msg);
+		
+	}
+
 }

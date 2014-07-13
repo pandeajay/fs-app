@@ -16,6 +16,8 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import com.mycompany.app.business.elements.Node;
+import com.mycompany.app.business.elements.ShortestPathAndWeight;
+import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 
 /**
@@ -36,9 +38,13 @@ public class Jgraph implements Graph {
 	 * input : from and to id
 	 * output : weight of shortest path between from and to
 	 */
-	public double fetchShortestPathWeight(String from , String to){
-		DijkstraShortestPath<String, DefaultWeightedEdge> shortpath = new DijkstraShortestPath<String, DefaultWeightedEdge>(this.jGraph, from, to);
-		return shortpath.getPathLength();
+	public ShortestPathAndWeight shortestPathFromImplementation(String from , String to){
+		DijkstraShortestPath<String, DefaultWeightedEdge> shortpath = new DijkstraShortestPath<String, DefaultWeightedEdge>(
+				this.jGraph, from, to);
+		ShortestPathAndWeight shortestPath = new ShortestPathAndWeight(
+				getShortestPathVetices(shortpath.getPathEdgeList()),
+				shortpath.getPathLength());
+		return shortestPath;
 	}
 	
 	/**
@@ -68,16 +74,6 @@ public class Jgraph implements Graph {
 		
 	}
 
-	/**
-	 * For a from and to pair return shortest path vertices
-	 * input : from and to id
-	 * output : Vertices id of shortest path between from and to
-	 */
-	@Override
-	public List getShortestPathVetices(String from, String to) {
-		return getShortestPathVetices(getShortestPathEdgeList(from, to));
-	}
-
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
@@ -87,13 +83,8 @@ public class Jgraph implements Graph {
 	 * Deletes specified node
 	 */
 	@Override
-	public long deleteNode(String nodeId) {
-		if(jGraph.removeVertex(nodeId)){
-			return 1;
-		}else{
-			return 0;		
-		}
-		
+	public void deleteNode(String nodeId) {
+		jGraph.removeVertex(nodeId);		
 	}
 
 
@@ -103,7 +94,7 @@ public class Jgraph implements Graph {
 	 */
 
 	@Override
-	public int deleteAllNodes() {
+	public void deleteAllNodes() throws AppException {
 		try{
 			Set<String> vertexSet = jGraph.vertexSet();
 			List<String> vertexList = new ArrayList<String>();
@@ -111,19 +102,20 @@ public class Jgraph implements Graph {
 				vertexList.add(vertex);
 			}
 			jGraph.removeAllVertices(vertexList);
-			return 1;
+			
 		}catch(Exception e){
 			System.out.print("Exception in deleteAllNodes " + e);
-		}
-		return 0;
+			throw new AppException("Exception in deleteAllNodes ");
+		}		
 	}
 
 
 	/**
 	 * Deletes all edges
+	 * @throws Exception 
 	 */
 	@Override
-	public int deleteAllEdges() {
+	public void deleteAllEdges() throws AppException {
 		try{
 			Set<DefaultWeightedEdge> edgeSet = jGraph.edgeSet();
 			List<DefaultWeightedEdge> edgeList = new ArrayList<DefaultWeightedEdge>();
@@ -131,17 +123,15 @@ public class Jgraph implements Graph {
 				edgeList.add(edge);
 			}
 			jGraph.removeAllEdges(edgeList);
-			return 1;
+			
 		}catch(Exception e){		
 			System.out.print("Exception in deleteAllEdges " + e);
+			throw new AppException("Exception in deleteAllEdges");
 		}
-		return 0;
-		
+	
 	}
 	
-	public SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> getJGraph(){
-		return jGraph;		
-	}
+
 
 
 
@@ -150,13 +140,8 @@ public class Jgraph implements Graph {
 
 
 	@Override
-	public long addNode(Node node) {
-		try{
-			jGraph.addVertex(node.nodeId());
-		}catch(Exception e){
-			System.out.println("Exception in Graph2 add " + e);
-		}
-		return 1;
+	public void addNode(Node node) {
+			jGraph.addVertex(node.nodeId());		
 	}
 
 
@@ -200,7 +185,7 @@ public class Jgraph implements Graph {
 	 * Creates edges of a specified Node
 	 */
 	@Override
-	public long addEdge(Node node) {
+	public void addEdge(Node node) {
 		Iterator<Entry<String, String>> it = node.edges().entrySet().iterator();
 		while(it.hasNext()){			
 			Entry<String, String> entry = it.next();
@@ -209,10 +194,5 @@ public class Jgraph implements Graph {
 				jGraph.setEdgeWeight(edge, Double.parseDouble(entry.getValue()));
 			}
 		}
-		
-		return 1;
 	}
-
-
-
 }

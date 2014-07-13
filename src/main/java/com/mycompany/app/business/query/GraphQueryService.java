@@ -7,6 +7,8 @@ package com.mycompany.app.business.query;
 
 import java.util.List;
 
+import com.mycompany.app.business.elements.ShortestPathAndWeight;
+import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 
 /**
@@ -16,8 +18,7 @@ import com.mycompany.app.business.graph.Graph;
  * @see
  * @since 1.0
  */
-public interface GraphQuery {
-	public double shortestPathWeight(String from, String to ) throws Exception ;				
-	public List<?> shortestPath(String from, String to ) throws Exception;
+public interface GraphQueryService {				
+	public ShortestPathAndWeight shortestPath(String from, String to ) throws AppException;
 
 }

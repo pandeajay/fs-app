@@ -5,7 +5,9 @@
 package com.mycompany.app.business.builder;
 
 import java.util.List;
+
 import com.mycompany.app.business.elements.Node;
+import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 
 
@@ -28,7 +30,7 @@ public interface GraphBuilder {
 	 * @param dataNodesPath
 	 * @throws Exception
 	 */
-	Graph buildGraphFromPreferenceFile(String dataNodesPath) throws Exception ;
+	Graph buildGraphFromPreferenceFile(String dataNodesPath) throws AppException ;
 	
 	/**
 	 * builds graph with list of nodes and type of graph which may e JGraph or NeoGraph
@@ -36,11 +38,12 @@ public interface GraphBuilder {
 	 * @param graphType
 	 * @throws Exception
 	 */
-	Graph buildGraphFromNodes(List<Node> nodes, String graphType) throws Exception;	
+	Graph buildGraphFromNodesAndType(List<Node> nodes, String graphType) throws AppException;	
 	
 	
 	/**
 	 * Delete graph
+	 * @throws AppException 
 	 */
-	void deleteAll();
+	void deleteAll() throws AppException;
 }

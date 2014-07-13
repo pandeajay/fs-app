@@ -24,6 +24,8 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
 import com.mycompany.app.business.elements.Node;
+import com.mycompany.app.business.elements.ShortestPathAndWeight;
+import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.graph.RelationTypes;
 
@@ -68,137 +70,66 @@ public class NeoGraph implements Graph{
 	 * Creates Neo Node from Node
 	 * input: node
 	 * output: new node id
+	 * @throws Exception 
 	 */
 
 	@Override
-	public long addNode(Node node) {
-		if(!validateNode(node)){
-			return 0;
-		}
-		
-		org.neo4j.graphdb.Node myNode = null;
-		
-		try{
+	public void addNode(Node node) throws AppException {
+		try {
+			validateNode(node);
+			org.neo4j.graphdb.Node myNode = null;
 			Transaction tx = graphDb.beginTx();
-			 myNode = graphDb.createNode();
-			 myNode.setProperty( "id", node.nodeId());
-			 myNode.setProperty( "to", node.edges().toString());	
-			 NeoGraph.nodeIAndNeoId.put(node.nodeId(), ""+myNode.getId());
-			 tx.success();
-			
-		}catch(Exception ex){
+			myNode = graphDb.createNode();
+			myNode.setProperty("id", node.nodeId());
+			myNode.setProperty("to", node.edges().toString());
+			NeoGraph.nodeIAndNeoId.put(node.nodeId(), "" + myNode.getId());
+			tx.success();
+		} catch (Exception ex) {
 			System.out.println("Exception in NeoGraph createNode " + ex);
-			return 0;
-		}	
-			
-		return myNode.getId();
-		
+			throw new AppException("Exception in NeoGraph createNode ");
+		}
 	}
 
 	/**
 	 * Creates Edge for passed node
 	 * input : node
 	 * output : edgeId 
+	 * @throws Exception 
 	 * 
 	 */
 	@Override
-	public long addEdge(Node node) {
-		if(!validateNode(node)){
-			return 0;
-		}
-		try{
-			Transaction tx = graphDb.beginTx();
+	public void addEdge(Node node) throws AppException {
+		validateNode(node);
 
-			long fromId = 0 ;
-			try{
-				fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(node.nodeId()));
-			}catch(Exception ex){
-				System.out.println("Exception in NeoGraph createEdges. From node does not exist" );
-				return 0;
-			}
-			org.neo4j.graphdb.Node fromNode = (org.neo4j.graphdb.Node) graphDb.getNodeById(fromId);			
-			Iterator<Entry<String, String>> it = node.edges().entrySet().iterator();
-			while(it.hasNext()){
-				Entry<String, String> entry = it.next();
-				long toId = 0 ;
-				try{
-					toId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(entry.getKey()));
-				}catch(Exception ex){
-					System.out.println("Exception in NeoGraph createEdges. To node does not exist" );
-					return 0;
-				}
-				org.neo4j.graphdb.Node toNode = graphDb.getNodeById(toId);
-				Relationship edge = fromNode.createRelationshipTo(toNode, RelationTypes.TravellingTo);
-				edge.setProperty("weight", entry.getValue());
-				edgeList.add(""+edge.getId());						
-			}	
-			 tx.success();
-			 
-			 return 1;
-		
-			
-		}catch(Exception ex){
-			System.out.println("Exception in NeoGraph createEdges " + ex);	
-		}	
-			
-		
-		return 0;
-		
-	}
-
-
-	/**
-	 * For a from and to pair return shortest path weight
-	 * input : from and to id
-	 * output : weight of shortest path between from and to
-	 */
-
-	@Override
-	public double fetchShortestPathWeight(String from, String to) {		
-		double minWeight = 0.0 ;
-		
-		if(from == null || from.length() == 0 || to == null || to.length() == 0){
-			System.out.println("Exception in getShortestPathWeight. Either from or to is not specified  " );
-			return 0.0;			
-		}
-		
 		try {
 			Transaction tx = graphDb.beginTx();
-			long fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(from));
-			long toId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(to));
-			org.neo4j.graphdb.Node fromNode = null;
-			org.neo4j.graphdb.Node toNode = null ;
-			
-			try{
-				fromNode = graphDb.getNodeById(fromId);			
-				toNode = graphDb.getNodeById(toId);
-			}catch(Exception ex){
-				System.out.println("Exception in getShortestPathWeight. From or To node does not exist " + ex);
-				return 0.0;
-			}
 
-			PathFinder<WeightedPath> finder = GraphAlgoFactory.dijkstra(
-				    PathExpanders.forTypeAndDirection( RelationTypes.TravellingTo, Direction.OUTGOING ), "weight" );
-						
-			Iterable<WeightedPath> paths = finder.findAllPaths(fromNode, toNode);
-			Iterator<WeightedPath> it = paths.iterator();
-			int i = 0;
-			while(it.hasNext()){
-				WeightedPath  path = it.next();
-				if(i == 0){
-					minWeight = path.weight();
-					i++;
-				}
-				if(minWeight > path.weight()){
-					minWeight = path.weight();
-				}
+			long fromId = 0;
+			fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(node.nodeId()));
+
+			org.neo4j.graphdb.Node fromNode = (org.neo4j.graphdb.Node) graphDb
+					.getNodeById(fromId);
+			Iterator<Entry<String, String>> it = node.edges().entrySet()
+					.iterator();
+			while (it.hasNext()) {
+				Entry<String, String> entry = it.next();
+				long toId = 0;
+				toId = Long
+						.parseLong(NeoGraph.nodeIAndNeoId.get(entry.getKey()));
+
+				org.neo4j.graphdb.Node toNode = graphDb.getNodeById(toId);
+				Relationship edge = fromNode.createRelationshipTo(toNode,
+						RelationTypes.TravellingTo);
+				edge.setProperty("weight", entry.getValue());
+				edgeList.add("" + edge.getId());
 			}
 			tx.success();
-		}catch(Exception e){
-			System.out.println("Exception in getShortestPathWeight  " + e);
-			return 0.0;
+
+		} catch (Exception ex) {
+			System.out.println("Exception in NeoGraph createEdges " + ex);
+			throw new AppException("Exception in NeoGraph createEdges ");
 		}
-		return minWeight;
+
 	}
 
 
@@ -225,51 +156,68 @@ public class NeoGraph implements Graph{
 	 * For a from and to pair return shortest path vertices
 	 * input : from and to id
 	 * output : Vertices id of shortest path between from and to
+	 * @throws AppException 
 	 */
 	@Override
-	public List getShortestPathVetices(String from, String to) {
+	public ShortestPathAndWeight shortestPathFromImplementation(String from, String to) throws AppException {
 		List<String> list = new ArrayList<String>();
-		
-		if(from == null || from.length() == 0 || to == null || to.length() == 0){
-			System.out.println("Exception in getShortestPathVetices. Either from or to is not specified  " );
-			return list ;			
-		}
-		
+		double minWeight = 0.0 ;
+
 		try {
+			if (from == null || from.length() == 0 || to == null
+					|| to.length() == 0) {
+				System.out
+						.println("Exception in getShortestPathVetices. Either from or to is not specified  ");
+				throw new AppException("To or From not valide for Neo4j Graph");
+			}
+
 			Transaction tx = graphDb.beginTx();
 			long fromId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(from));
 			long toId = Long.parseLong(NeoGraph.nodeIAndNeoId.get(to));
-			
+
 			org.neo4j.graphdb.Node fromNode = null;
-			org.neo4j.graphdb.Node toNode = null ;
-			
-			try{
-				fromNode = graphDb.getNodeById(fromId);			
+			org.neo4j.graphdb.Node toNode = null;
+
+				fromNode = graphDb.getNodeById(fromId);
 				toNode = graphDb.getNodeById(toId);
-			}catch(Exception ex){
-				System.out.println("Exception in getShortestPathVetices. From or To node does not exist " + ex);
-				return list;
-			}
 			
+
 			PathFinder<WeightedPath> finder = GraphAlgoFactory.dijkstra(
-				    PathExpanders.forTypeAndDirection( RelationTypes.TravellingTo, Direction.OUTGOING ), "weight" );			
-			
-			Iterable<WeightedPath> paths = finder.findAllPaths(fromNode, toNode);
+					PathExpanders.forTypeAndDirection(
+							RelationTypes.TravellingTo, Direction.OUTGOING),
+					"weight");
+
+			Iterable<WeightedPath> paths = finder
+					.findAllPaths(fromNode, toNode);
 			Iterator<WeightedPath> it = paths.iterator();
-			while(it.hasNext()){
-				Path path = it.next();				
+			int count = 0;
+
+			while (it.hasNext()) {
+				Path path = it.next();
+				WeightedPath weightedPath = (WeightedPath) path;
+				if (count == 0) {
+					minWeight = weightedPath.weight();
+					count++;
+				}
+				if (minWeight > weightedPath.weight()) {
+					minWeight = weightedPath.weight();
+				}
+
 				Iterable<org.neo4j.graphdb.Node> nodes = path.nodes();
 				Iterator<org.neo4j.graphdb.Node> it2 = nodes.iterator();
-				while(it2.hasNext()){
-					org.neo4j.graphdb.Node tempNode = it2.next();					
+				while (it2.hasNext()) {
+					org.neo4j.graphdb.Node tempNode = it2.next();
 					list.add(getNodeIdFromNeoNodeId(tempNode.getId()));
 				}
-			}			
+			}
 			tx.success();
 		} catch (Exception e) {
 			System.out.println("Exception in NeoGraph getShortestPathVetices " + e);
+			throw new AppException("Exception in NeoGraph getShortestPathVetices");
 		}
-		return list;
+		
+		ShortestPathAndWeight shortPath = new ShortestPathAndWeight(list,minWeight);
+		return shortPath;
 
 	}
 	
@@ -282,9 +230,10 @@ public class NeoGraph implements Graph{
 
 	/**
 	 * Creates neo nodes from Json nodes
+	 * @throws Exception 
 	 */
 	@Override
-	public void addNodes(List<Node> nodes) {
+	public void addNodes(List<Node> nodes) throws AppException {
 		if(nodes == null || nodes.size() == 0){
 			System.out.println("NeoGraph createNodes passed empty list of nodes");
 			return;
@@ -296,9 +245,10 @@ public class NeoGraph implements Graph{
 
 	/**
 	 * Creates edges from passed JSon nodes
+	 * @throws Exception 
 	 */
 	@Override
-	public void addEdges(List<Node> nodes) {
+	public void addEdges(List<Node> nodes) throws AppException {
 		if(nodes == null || nodes.size() == 0){
 			System.out.println("NeoGraph createEdges passed empty list of nodes");
 			return;
@@ -311,35 +261,40 @@ public class NeoGraph implements Graph{
 
 	/**
 	 * Deletes a nodes based on nodeId
+	 * @throws Exception 
 	 */
 	@Override
-	public long deleteNode(String nodeId) {
-		if(nodeId == null || nodeId.length() == 0 ){
-			System.out.println("Error in NeoGraph deleteNode.Pass valid nodeId " );
-			return 0;
-		}
+	public void deleteNode(String nodeId) throws AppException {
+
 		try {
+			if (nodeId == null || nodeId.length() == 0) {
+				System.out
+						.println("Error in NeoGraph deleteNode.Pass valid nodeId ");
+			}
+
 			Transaction tx = graphDb.beginTx();
 			org.neo4j.graphdb.Node tempNode = graphDb.getNodeById(Long
 					.parseLong(NeoGraph.nodeIAndNeoId.get(nodeId)));
 			tempNode.delete();
 			NeoGraph.nodeIAndNeoId.remove(nodeId);
 			tx.success();
-			return 1;
+
 		} catch (Exception e) {
 			System.out.println("Exception in NeoGraph deleteNode " + e);
+			throw new AppException("Exception in NeoGraph deleteNode");
 		}
-		return 0;
+
 	}
-	
+
 	/**
 	 * Deletes nodes from passed node ids
 	 */
 
 	@Override
 	public void deleteNodes(List<Node> nodes) {
-		if(nodes == null || nodes.size() == 0){
-			System.out.println("NeoGraph deleteNodes passed empty list of nodes");
+		if (nodes == null || nodes.size() == 0) {
+			System.out
+					.println("NeoGraph deleteNodes passed empty list of nodes");
 			return;
 		}
 		try {
@@ -353,82 +308,83 @@ public class NeoGraph implements Graph{
 					+ e);
 		}
 	}
-	
 
 	/**
 	 * gets all nodes in a graph
+	 * 
 	 * @return
 	 */
 	public List<Object> getAllNodes() {
 		List<Object> list = new ArrayList<Object>();
 		Iterator<org.neo4j.graphdb.Node> it = graphDb.getAllNodes().iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			list.add(it.next());
 		}
 		return list;
-		
+
 	}
 
-
-	
 	/**
 	 * deletes all nodes in a graph
+	 * 
+	 * @throws Exception
 	 */
 	@Override
-	public int deleteAllNodes() {
+	public void deleteAllNodes() throws AppException {
 		try {
 			Transaction tx = graphDb.beginTx();
 			List<String> nodes = new ArrayList<String>();
-			Iterator<Entry<String, String>> it = NeoGraph.nodeIAndNeoId.entrySet().iterator();
+			Iterator<Entry<String, String>> it = NeoGraph.nodeIAndNeoId
+					.entrySet().iterator();
 			while (it.hasNext()) {
 				nodes.add(it.next().getKey());
-			}	
-			for(String nodeId : nodes){
-				deleteNode(nodeId);				
+			}
+			for (String nodeId : nodes) {
+				deleteNode(nodeId);
 			}
 			tx.close();
-			//tx.success();
+			// tx.success();
 		} catch (Exception e) {
-			System.out.println("Exception in NeoGraph deleteAllNodes " 	+ e);
-			return 0;
+			System.out.println("Exception in NeoGraph deleteAllNodes " + e);
+			throw new AppException("Exception in NeoGraph deleteAllNodes ");
 		}
-		return 1;
+
 	}
-	
+
 	/**
 	 * deletes all edges from a graph
 	 */
 	@Override
-	public int deleteAllEdges() {
-		try {	
+	public void deleteAllEdges() throws AppException {
+		try {
 			Transaction tx = graphDb.beginTx();
-			for(String edgeId : edgeList){
-				Relationship edge = graphDb.getRelationshipById(Long.parseLong(edgeId));
+			for (String edgeId : edgeList) {
+				Relationship edge = graphDb.getRelationshipById(Long
+						.parseLong(edgeId));
 				edge.delete();
-			}			
+			}
 			tx.success();
 		} catch (Exception e) {
-			System.out.println("Exception in NeoGraph deleteAllEdges " 	+ e);
-			return 0;
+			System.out.println("Exception in NeoGraph deleteAllEdges " + e);
+			throw new AppException("Exception in NeoGraph deleteAllEdges ");
 		}
-		return 1;
+
 	}
-	
+
 	/**
 	 * Verifies passed node so that Neo node can be created
+	 * 
 	 * @param node
 	 * @return
 	 */
-	boolean validateNode(Node node){
-		if(node == null){
+	void validateNode(Node node) throws AppException {
+		if (node == null) {
 			System.out.println("NeoGraph createEdge : node is null ");
-			return false;
+			throw new AppException("NeoGraph createEdge : node is null ");
 		}
-		if(node.nodeId() == null || node.nodeId().length() == 0){
+		if (node.nodeId() == null || node.nodeId().length() == 0) {
 			System.out.println("NeoGraph createEdge : node id is null ");
-			return false;
+			throw new AppException("NeoGraph createEdge : node is null ");
 		}
-		return true;
 	}
-
 }

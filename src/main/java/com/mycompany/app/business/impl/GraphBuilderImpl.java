@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.mycompany.app.business.builder.GraphBuilder;
 import com.mycompany.app.business.elements.Node;
+import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.codes.ErrorCodes;
 import com.mycompany.app.codes.InfoCodes;
@@ -35,7 +36,7 @@ public class GraphBuilderImpl implements GraphBuilder{
 
 
 	@Override
-	public Graph buildGraphFromPreferenceFile(String dataNodesPath) throws Exception {
+	public Graph buildGraphFromPreferenceFile(String userInputFile) throws AppException {
 		try{
 			logger.fine(InfoCodes.INFO_INITIALIZING_GRAPH);		
 
@@ -44,7 +45,7 @@ public class GraphBuilderImpl implements GraphBuilder{
 				throw new Exception (ErrorCodes.ERROR_GRAPH_INITIALIZED);
 			}
 
-			userInputs =  Utils.userQueries(dataNodesPath);
+			userInputs =  Utils.userQueries(userInputFile);
 			
 			if(userInputs == null || userInputs.isEmpty()){
 				throw new Exception(ErrorCodes.ERROR_NON_INITIALIZED_GRAPH);
@@ -58,24 +59,26 @@ public class GraphBuilderImpl implements GraphBuilder{
 				this.graph  = new Jgraph();
 			}		
 
-			logger.fine(InfoCodes.INFO_GRAPH_INITIALIZED);				
-			logger.info(InfoCodes.INFO_BUILDING_GRAPH);								
+			logger.info(InfoCodes.INFO_GRAPH_INITIALIZED);					
+			logger.info(InfoCodes.INFO_BUILDING_GRAPH);				
 			String nodesDataPath = userInputs.get("DataFile");
 			
 			List<Node> newNodesList = Utils.getAllNodesFromJson(nodesDataPath);				
 			graph.addNodes(newNodesList);
-			graph.addEdges(newNodesList);
-			
-			return graph;		
-			
+			graph.addEdges(newNodesList);			
+			return graph;					
 		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
-			throw new Exception(ErrorCodes.ERROR_BUILDING_GRAPH );
+			logger.error(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
+			throw new AppException(ErrorCodes.ERROR_BUILDING_GRAPH );
 		}			
 		
 	}
+	
+	/**
+	 * From provided nodes and graph type returns Graph
+	 */
 	@Override
-	public Graph buildGraphFromNodes(List<Node> nodes, String graphType) throws Exception {
+	public Graph buildGraphFromNodesAndType(List<Node> nodes, String graphType) throws AppException {
 		try{
 			if(graphType == null || graphType.length() == 0){
 				this.graph  = new Jgraph();
@@ -84,31 +87,31 @@ public class GraphBuilderImpl implements GraphBuilder{
 			}else {
 				//use this by default
 				this.graph  = new Jgraph();
-			}		
+			}	
 			
 			logger.info(InfoCodes.INFO_BUILDING_GRAPH);	
 			if(nodes != null && nodes.size() > 0){					
 				graph.addNodes(nodes);
 				graph.addEdges(nodes);
 				
-			}
-			
+			}			
 			return this.graph;
 		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
-			throw new Exception(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
+			logger.error(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
+			throw new AppException(ErrorCodes.ERROR_BUILDING_GRAPH+ ex);
 		}		
 	}
 	
 	@Override
-	public void deleteAll() {
+	public void deleteAll() throws AppException {
 		try{
 			logger.fine(InfoCodes.INFO_CLOSING_GRAPH );	
 			this.graph.close();
 			this.graph = null;
 			logger.fine(InfoCodes.INFO_CLOSED_GRAPH);
 		}catch(Exception ex){
-			logger.warning(ErrorCodes.ERROR_IN_CLOSING_EDGE + ex);			
+			logger.error(ErrorCodes.ERROR_IN_CLOSING_EDGE + ex);	
+			throw new AppException(ErrorCodes.ERROR_IN_CLOSING_EDGE);
 		}
 	}
 }

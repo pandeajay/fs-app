@@ -23,7 +23,7 @@ public interface Node {
 	public String nodeId();
 	
 	/**
-	 * Get edges of a this node
+	 * Represents edges of a this node
 	 * @return
 	 */
 	public Map<String,String> edges();

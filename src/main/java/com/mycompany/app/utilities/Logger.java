@@ -82,5 +82,13 @@ public class Logger {
 	public void warning(String msg){
 		log.warning(msg);
 	}
+	
+	/**
+	 * Logs warning level messeges
+	 * @param msg
+	 */
+	public void error(String msg){
+		log.error(msg);
+	}
 
 }
