@@ -28,10 +28,18 @@ public class Logger {
 	 * @param log
 	 * @return
 	 */
-	public static Logger getLogger(Log userLog){
+	public static Logger setAndGetLogger(Log userLog) {
 		if(logger == null){
 			logger = new Logger();
 			log = userLog;
+		}
+		return logger;	
+	}
+	
+	
+	public static Logger getLogger(){
+		if(logger == null){
+			return null;
 		}
 		return logger;	
 	}	

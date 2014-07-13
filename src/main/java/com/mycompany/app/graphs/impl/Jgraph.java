@@ -35,7 +35,7 @@ public class Jgraph implements Graph {
 	
 	private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> jGraph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 	
-	private Logger logger = Logger.getLogger(new LogImpl());
+	private Logger logger = Logger.getLogger();
 		
 	/**
 	 * For a from and to pair return shortest path weight

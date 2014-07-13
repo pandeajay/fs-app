@@ -30,10 +30,8 @@ import com.mycompany.app.utilities.Utils;
 public class GraphBuilderImpl implements GraphBuilder{
 
 	private Graph graph = null;	
-	private Logger logger = Logger.getLogger(new LogImpl());
+	private Logger logger = Logger.setAndGetLogger(new LogImpl());
 	private Map<String,String> userInputs = null;
-
-
 
 	@Override
 	public Graph buildGraphFromPreferenceFile(String userInputFile) throws AppException {

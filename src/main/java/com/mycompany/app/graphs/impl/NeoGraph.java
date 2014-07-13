@@ -46,7 +46,7 @@ public class NeoGraph implements Graph{
 	GraphDatabaseService graphDb = null;
 	static Map<String, String > nodeIAndNeoId = new HashMap<String, String>();
 	static List<String> edgeList = new ArrayList<String>(); 
-	private Logger logger = Logger.getLogger(new LogImpl());
+	private Logger logger = Logger.getLogger();
 	
 	
 	/**

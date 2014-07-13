@@ -31,7 +31,7 @@ import com.mycompany.app.log.LogImpl;
  */
 public class Utils {
 	
-	private static Logger logger = Logger.getLogger(new LogImpl());
+	private static Logger logger = Logger.getLogger();
 
 	
 	public static List<Node> getAllNodesFromJson(String josnFile) throws AppException {
