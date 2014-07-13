@@ -28,6 +28,8 @@ import com.mycompany.app.business.elements.ShortestPathAndWeight;
 import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.graph.RelationTypes;
+import com.mycompany.app.log.LogImpl;
+import com.mycompany.app.utilities.Logger;
 
 
 /**
@@ -43,6 +45,7 @@ public class NeoGraph implements Graph{
 	GraphDatabaseService graphDb = null;
 	static Map<String, String > nodeIAndNeoId = new HashMap<String, String>();
 	static List<String> edgeList = new ArrayList<String>(); 
+	private Logger logger = Logger.getLogger(new LogImpl());
 	
 	
 	/**
@@ -59,7 +62,7 @@ public class NeoGraph implements Graph{
 			}
 			
 		}catch(Exception e){
-			System.out.println("Exception "+ e ) ;
+			logger.error("Exception "+ e ) ;
 		}
 	}
 
@@ -85,7 +88,7 @@ public class NeoGraph implements Graph{
 			NeoGraph.nodeIAndNeoId.put(node.nodeId(), "" + myNode.getId());
 			tx.success();
 		} catch (Exception ex) {
-			System.out.println("Exception in NeoGraph createNode " + ex);
+			logger.error("Exception in NeoGraph createNode " + ex);
 			throw new AppException("Exception in NeoGraph createNode ");
 		}
 	}
@@ -99,9 +102,8 @@ public class NeoGraph implements Graph{
 	 */
 	@Override
 	public void addEdge(Node node) throws AppException {
-		validateNode(node);
-
 		try {
+			validateNode(node);
 			Transaction tx = graphDb.beginTx();
 
 			long fromId = 0;
@@ -126,7 +128,7 @@ public class NeoGraph implements Graph{
 			tx.success();
 
 		} catch (Exception ex) {
-			System.out.println("Exception in NeoGraph createEdges " + ex);
+			logger.error("Exception in NeoGraph createEdges " + ex);
 			throw new AppException("Exception in NeoGraph createEdges ");
 		}
 
@@ -212,7 +214,7 @@ public class NeoGraph implements Graph{
 			}
 			tx.success();
 		} catch (Exception e) {
-			System.out.println("Exception in NeoGraph getShortestPathVetices " + e);
+			logger.error("Exception in NeoGraph getShortestPathVetices " + e);
 			throw new AppException("Exception in NeoGraph getShortestPathVetices");
 		}
 		
@@ -235,7 +237,7 @@ public class NeoGraph implements Graph{
 	@Override
 	public void addNodes(List<Node> nodes) throws AppException {
 		if(nodes == null || nodes.size() == 0){
-			System.out.println("NeoGraph createNodes passed empty list of nodes");
+			logger.error("NeoGraph createNodes passed empty list of nodes");
 			return;
 		}
 		for(Node node : nodes){
@@ -250,7 +252,7 @@ public class NeoGraph implements Graph{
 	@Override
 	public void addEdges(List<Node> nodes) throws AppException {
 		if(nodes == null || nodes.size() == 0){
-			System.out.println("NeoGraph createEdges passed empty list of nodes");
+			logger.error("NeoGraph createEdges passed empty list of nodes");
 			return;
 		}
 		for(Node node : nodes){
@@ -280,7 +282,7 @@ public class NeoGraph implements Graph{
 			tx.success();
 
 		} catch (Exception e) {
-			System.out.println("Exception in NeoGraph deleteNode " + e);
+			logger.error("Exception in NeoGraph deleteNode " + e);
 			throw new AppException("Exception in NeoGraph deleteNode");
 		}
 
@@ -304,7 +306,7 @@ public class NeoGraph implements Graph{
 			}
 			tx.success();
 		} catch (Exception e) {
-			System.out.println("Exception in NeoGraph getShortestPathVetices "
+			logger.error("Exception in NeoGraph getShortestPathVetices "
 					+ e);
 		}
 	}
@@ -345,7 +347,7 @@ public class NeoGraph implements Graph{
 			tx.close();
 			// tx.success();
 		} catch (Exception e) {
-			System.out.println("Exception in NeoGraph deleteAllNodes " + e);
+			logger.error("Exception in NeoGraph deleteAllNodes " + e);
 			throw new AppException("Exception in NeoGraph deleteAllNodes ");
 		}
 
@@ -365,7 +367,7 @@ public class NeoGraph implements Graph{
 			}
 			tx.success();
 		} catch (Exception e) {
-			System.out.println("Exception in NeoGraph deleteAllEdges " + e);
+			logger.error("Exception in NeoGraph deleteAllEdges " + e);
 			throw new AppException("Exception in NeoGraph deleteAllEdges ");
 		}
 
@@ -379,11 +381,11 @@ public class NeoGraph implements Graph{
 	 */
 	void validateNode(Node node) throws AppException {
 		if (node == null) {
-			System.out.println("NeoGraph createEdge : node is null ");
+			logger.error("NeoGraph createEdge : node is null ");
 			throw new AppException("NeoGraph createEdge : node is null ");
 		}
 		if (node.nodeId() == null || node.nodeId().length() == 0) {
-			System.out.println("NeoGraph createEdge : node id is null ");
+			logger.error("NeoGraph createEdge : node id is null ");
 			throw new AppException("NeoGraph createEdge : node is null ");
 		}
 	}

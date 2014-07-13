@@ -19,6 +19,9 @@ import com.mycompany.app.business.elements.Node;
 import com.mycompany.app.business.elements.ShortestPathAndWeight;
 import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
+import com.mycompany.app.codes.ErrorCodes;
+import com.mycompany.app.log.LogImpl;
+import com.mycompany.app.utilities.Logger;
 
 /**
  * Represents JGraphT based implementation for Graph
@@ -32,6 +35,7 @@ public class Jgraph implements Graph {
 	
 	private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> jGraph = new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 	
+	private Logger logger = Logger.getLogger(new LogImpl());
 		
 	/**
 	 * For a from and to pair return shortest path weight
@@ -70,10 +74,16 @@ public class Jgraph implements Graph {
 	}
 	/**
 	 * Deletes specified node
+	 * @throws AppException 
 	 */
 	@Override
-	public void deleteNode(String nodeId) {
-		jGraph.removeVertex(nodeId);		
+	public void deleteNode(String nodeId) throws AppException {
+		try{
+			jGraph.removeVertex(nodeId);
+		}catch(Exception ex){
+			logger.error(ErrorCodes.ERROR_IN_CREATING_EDGE + ex) ;
+			throw new AppException(ErrorCodes.ERROR_IN_CREATING_EDGE );
+		}
 	}
 
 
@@ -93,7 +103,7 @@ public class Jgraph implements Graph {
 			jGraph.removeAllVertices(vertexList);
 			
 		}catch(Exception e){
-			System.out.print("Exception in deleteAllNodes " + e);
+			logger.error("Exception in deleteAllNodes " + e);			
 			throw new AppException("Exception in deleteAllNodes ");
 		}		
 	}
@@ -114,55 +124,48 @@ public class Jgraph implements Graph {
 			jGraph.removeAllEdges(edgeList);
 			
 		}catch(Exception e){		
-			System.out.print("Exception in deleteAllEdges " + e);
+			logger.error("Exception in deleteAllEdges " + e);
 			throw new AppException("Exception in deleteAllEdges");
 		}
 	
 	}
-	
-
-
-
-
-
-
-
 
 	@Override
-	public void addNode(Node node) {
-			jGraph.addVertex(node.nodeId());		
+	public void addNode(Node node)throws AppException {
+		try{
+			jGraph.addVertex(node.nodeId());
+		}catch(Exception ex){
+			logger.error(ErrorCodes.ERROR_IN_CREATING_NODE + ex);
+			throw new AppException(ErrorCodes.ERROR_IN_CREATING_NODE);
+		}
 	}
-
-
 
 	
 	@Override
 	public void addEdges(List<Node> nodes) {
 		for(Node node : nodes){
 			addEdge(node);
-		}
-		
-		
+		}		
 	}
 	
 	/**
 	 * Creates JGraph nodes from Json nodes
+	 * @throws AppException 
 	 */
 
 	@Override
-	public void addNodes(List<Node> nodes) {
+	public void addNodes(List<Node> nodes) throws AppException {
 		for(Node node : nodes){
 			addNode(node);
-		}
-		
-		
+		}		
 	}
 	
 	/**
 	 * Deletes specified nodes
+	 * @throws AppException 
 	 */
 	@Override
-	public void deleteNodes(List<Node> nodes) {
+	public void deleteNodes(List<Node> nodes) throws AppException {
 		for(Node node : nodes){
 			deleteNode(node.nodeId());
 		}
