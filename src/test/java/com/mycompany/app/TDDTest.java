@@ -105,7 +105,7 @@ public class TDDTest extends TestCase {
 			
 		} catch (Exception ex) {
 			System.out.println("Exception in = " + ex);
-			fail("" + ex);
+			fail("testShortestPath" + ex);
 		}
 	}
 
@@ -121,7 +121,7 @@ public class TDDTest extends TestCase {
 			//TODO: Weight being double, some tolerance should be added while comparing for being equal
 			assertEquals(shortPathWeight.weight(), 4.0);
 		} catch (Exception ex) {
-			fail("" + ex);
+			fail("testShortestPathWeight" + ex);
 		}
 	}
 }
