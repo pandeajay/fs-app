@@ -28,6 +28,7 @@ import com.mycompany.app.business.elements.ShortestPathAndWeight;
 import com.mycompany.app.business.exception.AppException;
 import com.mycompany.app.business.graph.Graph;
 import com.mycompany.app.business.graph.RelationTypes;
+import com.mycompany.app.codes.ErrorCodes;
 import com.mycompany.app.log.LogImpl;
 import com.mycompany.app.utilities.Logger;
 
@@ -290,24 +291,25 @@ public class NeoGraph implements Graph{
 
 	/**
 	 * Deletes nodes from passed node ids
+	 * @throws AppException 
 	 */
 
 	@Override
-	public void deleteNodes(List<Node> nodes) {
-		if (nodes == null || nodes.size() == 0) {
-			System.out
-					.println("NeoGraph deleteNodes passed empty list of nodes");
-			return;
-		}
+	public void deleteNodes(List<Node> nodes) throws AppException {
 		try {
+			if (nodes == null || nodes.size() == 0) {
+				logger.error("NeoGraph deleteNodes passed empty list of nodes");
+				throw new AppException("NeoGraph deleteNodes passed empty list of nodes");				
+			}
+
 			Transaction tx = graphDb.beginTx();
 			for (Node node : nodes) {
 				deleteNode(node.nodeId());
 			}
 			tx.success();
 		} catch (Exception e) {
-			logger.error("Exception in NeoGraph getShortestPathVetices "
-					+ e);
+			logger.error(ErrorCodes.ERROR_WHILE_DELETING_NODES+ e);
+			throw new AppException(ErrorCodes.ERROR_WHILE_DELETING_NODES);		
 		}
 	}
 

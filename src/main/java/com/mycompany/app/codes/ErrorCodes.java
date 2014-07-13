@@ -27,4 +27,5 @@ public class ErrorCodes {
 	public static final String ERROR_IN_GETTING_JSON_QUERIES = errorPrefix + "Error in getting JSON queries from user";
 	public static final String ERROR_IN_READING_JSON_TO_FROM = errorPrefix + "Error in reading JSON to and from list";
 	public static final String ERROR_IN_CREATING_NODE = errorPrefix + "Error in creating node";
+	public static final String ERROR_WHILE_DELETING_NODES = errorPrefix + "Exception in NeoGraph while deleting nodes";
 }
