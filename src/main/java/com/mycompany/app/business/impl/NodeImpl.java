@@ -27,7 +27,7 @@ public class NodeImpl implements Node {
 	//User defined node id
 	private String id ;
 	
-	//Represents edge edgesMap and its weight
+	//Represents meta info of edges from this node and its weight
 	private Map <String, String> edgesMap ;
 	
 	/**
