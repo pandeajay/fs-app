@@ -10,4 +10,5 @@
 	2.5. Maven can be used for building project and generating docs. No need to compile from Eclipse.
 	2.6. Overall design is flexible through interfaces at many places and using Dependency Injection at almost all places. Spring can be thought at the larger scale application.
 	2.7. TDDTest has necessary tests that are important from given application perspective. Each test would test only one functionality at a time.
+	2.8. class-dia.jpg shows class diagram.
 	
